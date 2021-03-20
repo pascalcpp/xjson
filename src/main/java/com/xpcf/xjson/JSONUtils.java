@@ -26,11 +26,24 @@ public class JSONUtils {
 
     }
 
+    /**
+     * current json char array cursor
+     */
     private static int index = 0;
+    /**
+     * current json char array length
+     */
     private static int size = 0;
 
+    /**
+     *  store json data
+     */
     private static char[] json;
 
+    /**
+     * pares object
+     * @return
+     */
     public static Map<String, Object> parseObject() {
         Map<String, Object> result = new HashMap<>();
         if (json[index] == '{') {
@@ -67,6 +80,11 @@ public class JSONUtils {
         return result;
     }
 
+
+    /**
+     * pares value
+     * @return
+     */
     private static Object parseValue() {
         skipWhitespace();
 
