@@ -1,9 +1,7 @@
 package com.xpcf.xjson;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author XPCF
@@ -12,19 +10,30 @@ import java.util.Map;
  */
 public class JSONUtils {
     public static void main(String[] args) throws IOException {
+
         String js = "{\n" +
                 "  \"code\": 200,\n" +
                 "  \"student\": {\n" +
                 "    \"name\": \"xpcf\",\n" +
                 "    \"age\": 22\n" +
-                "  }\n" +
+                "  },\n" +
+                "  \"goods\": [\n" +
+                "    \"good1\",\n" +
+                "    2,\n" +
+                "    12\n" +
+                "  ]\n" +
                 "}";
-        json = js.toCharArray();
-        size = json.length;
-        Map<String, Object> stringObjectMap = parseObject();
-        System.out.println(stringObjectMap);
 
+        System.out.println(parseJSON(js));
     }
+
+    public static Map<String, Object> parseJSON(String json) {
+        size = json.length();
+        JSONUtils.json = json.toCharArray();
+        return parseObject();
+    }
+
+
 
     /**
      * current json char array cursor
@@ -88,16 +97,44 @@ public class JSONUtils {
     private static Object parseValue() {
         skipWhitespace();
 
-
         switch (json[index]) {
             case '{':
                 return parseObject();
             case '"':
                 return parseString();
+            case '[':
+                return parseArray();
             default:
                 return parseNumber();
         }
 
+    }
+
+    private static Object parseArray() {
+        if (json[index] == '[') {
+            ++index;
+            skipWhitespace();
+            List<Object> list = new ArrayList<>();
+            boolean initial = true;
+            while (index < size && json[index] != ']') {
+                if (!initial) {
+                    if (json[index] == ',') {
+                        eatComma();
+                        skipWhitespace();
+                    } else {
+                        skipWhitespace();
+                        break;
+                    }
+                }
+                Object value = parseValue();
+                list.add(value);
+                initial = false;
+            }
+            expectNotEndOfInput(']');
+            ++index;
+            return list;
+        }
+        throw new RuntimeException("Parse Array Error");
     }
 
     private static Object parseNumber() {
