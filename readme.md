@@ -1,1 +1,1 @@
-simple JSONUtils v1.0.0
+simple JSONUtils v1.0.2

@@ -39,15 +39,21 @@ public class JSONUtils {
      * current json char array cursor
      */
     private static int index = 0;
+
+
     /**
      * current json char array length
      */
     private static int size = 0;
 
+
+
     /**
      *  store json data
      */
     private static char[] json;
+
+
 
     /**
      * pares object
@@ -220,8 +226,7 @@ public class JSONUtils {
                     expectEscapeCharacter();
                 }
             } else {
-                sb.append(json[index]);
-                ++index;
+                sb.append(json[index++]);
             }
         }
         expectNotEndOfInput('"');

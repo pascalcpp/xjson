@@ -1,15 +1,15 @@
-//{
-//  "code": 200,
-//  "student": {
-//    "name": "xpcf",
-//    "age": 22
-//  },
-//  "goods": [
-//    "good1",
-//    2,
-//    12
-//  ]
-//}
+{
+  "code": 200,
+  "student": {
+    "name": "xpcf",
+    "age": 22
+  },
+  "goods": [
+    "good1",
+    2,
+    12
+  ]
+}
 
 {
   "a": [
